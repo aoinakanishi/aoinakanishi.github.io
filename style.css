@@ -12,6 +12,22 @@ header {
   background: #000;
 }
 
+header.hero {
+  min-height: 100vh;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header.hero .content {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+}
+
 .parallax {
   min-height: 100vh;
   position: relative;
