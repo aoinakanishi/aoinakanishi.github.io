@@ -12,15 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
   sections.forEach(section => observer.observe(section));
 
   // Project One background images
-  const projectImages = [
-    'https://source.unsplash.com/1600x900?nature,water',
-    'https://source.unsplash.com/1600x900?nature,forest',
-    'https://source.unsplash.com/1600x900?nature,sky'
-  ];
-  document.querySelectorAll('.project-one .backgrounds .bg').forEach((el, idx) => {
-    if (projectImages[idx]) {
-      el.style.backgroundImage = `url('${projectImages[idx]}')`;
-    }
+  const projectImages = Array.from({ length: 3 }, (_, i) =>
+    `https://picsum.photos/1600/900?random=${Date.now()}-${i}`
+  );
+  document
+    .querySelectorAll('.project-one .backgrounds .bg')
+    .forEach((el, idx) => {
+      if (projectImages[idx]) {
+        el.style.backgroundImage = `url('${projectImages[idx]}')`;
+      }
+    });
+
+  // Randomize images for other project sections
+  document.querySelectorAll('.parallax.random-image').forEach(section => {
+    section.style.backgroundImage = `url('https://picsum.photos/1200/800?random=${Math.random()}')`;
   });
 
   // Rotating short descriptions
