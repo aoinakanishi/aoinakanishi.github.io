@@ -155,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
       books.forEach(b => b.classList.remove('active'));
       book.classList.add('active');
       booksSection.classList.add('open');
+      booksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     if (close) {
       close.addEventListener('click', e => {
