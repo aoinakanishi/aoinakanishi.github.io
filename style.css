@@ -207,9 +207,30 @@ footer .social-icons svg {
 .books-section {
   position: relative;
   background: #111;
-  background-image: url('images/typewriter.webp');
   padding: 60px 0;
   scroll-snap-align: start;
+  overflow: hidden;
+}
+
+.books-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('images/typewriter.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: inherit;
+  filter: grayscale(100%);
+  z-index: 0;
+}
+
+.books-section .books-container {
+  position: relative;
+  z-index: 1;
+}
+
+.books-section .modal-overlay {
+  z-index: 1;
 }
 
 .books-section.open {
