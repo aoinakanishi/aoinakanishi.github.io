@@ -225,4 +225,20 @@ document.addEventListener('DOMContentLoaded', () => {
       articles.forEach(a => a.classList.remove('active'));
     });
   }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      if (booksSection && booksSection.classList.contains('open')) {
+        booksSection.classList.remove('open');
+        books.forEach(b => b.classList.remove('active'));
+      }
+      if (worksSection && worksSection.classList.contains('open')) {
+        worksSection.classList.remove('open');
+        works.forEach(w => w.classList.remove('active'));
+      }
+      if (articlesSection && articlesSection.classList.contains('open')) {
+        articlesSection.classList.remove('open');
+        articles.forEach(a => a.classList.remove('active'));
+      }
+    }
+  });
 });
