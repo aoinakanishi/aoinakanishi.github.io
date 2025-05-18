@@ -199,6 +199,98 @@ footer .social-icons svg {
   pointer-events: none;
 }
 
+.books-section {
+  position: relative;
+  background: #111;
+  padding: 60px 0;
+}
+
+.books-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.modal-overlay {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.books-section.open .modal-overlay {
+  display: block;
+  z-index: 1;
+}
+
+.book {
+  position: relative;
+  width: 200px;
+  cursor: pointer;
+  transform: skewY(-8deg);
+  transition: transform 0.5s;
+}
+
+.book img {
+  width: 100%;
+  display: block;
+}
+
+.book .info {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: calc(100% + 20px);
+  width: 250px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  text-align: left;
+}
+
+.book .close {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.books-section.open .book {
+  display: none;
+}
+
+.books-section.open .book.active {
+  display: flex;
+  width: 80%;
+  margin: 0 10%;
+  transform: none;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.books-section.open .book.active img {
+  width: 40%;
+  transform: none;
+}
+
+.books-section.open .book.active .info {
+  display: block;
+  position: static;
+  width: 60%;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.books-section.open .book.active .close {
+  display: block;
+}
+
 @media (max-width: 768px) {
   header.hero,
   .parallax {
