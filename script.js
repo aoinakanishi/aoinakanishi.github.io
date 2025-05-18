@@ -28,26 +28,50 @@ document.addEventListener('DOMContentLoaded', () => {
     section.style.backgroundImage = `url('https://picsum.photos/1200/800?random=${Math.random()}')`;
   });
 
-  // Rotating short descriptions
-  const messages = [
-    'システム設計を支援',
-    '迅速な開発を実現',
-    '運用保守もお任せ'
-  ];
-  const messageEl = document.querySelector('.project-one .message');
-  let msgIndex = 0;
+  // Rotating short descriptions for each project
+  const projectMessages = {
+    'project-one': [
+      'システム設計を支援',
+      '迅速な開発を実現',
+      '運用保守もお任せ'
+    ],
+    'project-two': [
+      '革新的な技術を追求',
+      '未来を切り開くソリューション',
+      '常に新しい挑戦を'
+    ],
+    'project-three': [
+      '学びを止めない',
+      '挑戦から成長へ',
+      '可能性を広げる'
+    ],
+    'project-four': [
+      '多様性が力になる',
+      '共に創り上げる価値',
+      '個性を活かしたチームワーク'
+    ]
+  };
 
-  function showMessage() {
-    messageEl.classList.remove('visible');
-    setTimeout(() => {
-      messageEl.textContent = messages[msgIndex];
-      messageEl.classList.add('visible');
-      msgIndex = (msgIndex + 1) % messages.length;
-    }, 500);
+  function setupMessageRotation(el, msgs) {
+    let index = 0;
+    function show() {
+      el.classList.remove('visible');
+      setTimeout(() => {
+        el.textContent = msgs[index];
+        el.classList.add('visible');
+        index = (index + 1) % msgs.length;
+      }, 500);
+    }
+    show();
+    setInterval(show, 3000);
   }
 
-  showMessage();
-  setInterval(showMessage, 3000);
+  Object.entries(projectMessages).forEach(([cls, msgs]) => {
+    const el = document.querySelector(`.${cls} .message`);
+    if (el) {
+      setupMessageRotation(el, msgs);
+    }
+  });
 
   // Smooth scroll between projects using arrow keys
   const scrollTargets = [
