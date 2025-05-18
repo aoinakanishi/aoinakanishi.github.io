@@ -205,6 +205,12 @@ footer .social-icons svg {
   padding: 60px 0;
 }
 
+.books-section.open {
+  padding: 0;
+  height: calc(var(--vh, 1vh) * 100);
+  overflow-y: auto;
+}
+
 .books-container {
   display: flex;
   justify-content: center;
