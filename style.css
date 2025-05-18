@@ -59,3 +59,72 @@ footer {
   padding: 50px;
   background: #000;
 }
+
+/* Project One custom background slider */
+.project-one {
+  overflow: hidden;
+}
+
+.project-one .backgrounds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.project-one .backgrounds .bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  animation: fadeSlide 15s infinite;
+}
+
+.project-one .backgrounds .bg:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.project-one .backgrounds .bg:nth-child(2) {
+  animation-delay: 5s;
+}
+
+.project-one .backgrounds .bg:nth-child(3) {
+  animation-delay: 10s;
+}
+
+@keyframes fadeSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  40% {
+    opacity: 0;
+    transform: translateX(-10%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-10%);
+  }
+}
+
+.project-one .message {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.project-one .message.visible {
+  opacity: 1;
+}
