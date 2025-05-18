@@ -150,3 +150,23 @@ footer {
 .project-one .message.visible {
   opacity: 1;
 }
+
+#scroll-indicator {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  padding: 10px;
+  font-size: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1000;
+  transition: opacity 0.3s;
+}
+
+#scroll-indicator.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
