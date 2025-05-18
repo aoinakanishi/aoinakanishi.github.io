@@ -348,9 +348,14 @@ footer .social-icons svg {
   transition: filter 0.3s ease;
 }
 
-.work-card:hover img,
 .works-section.open .work-card.active img {
   filter: none;
+}
+
+@media (hover: hover) {
+  .work-card:hover img {
+    filter: none;
+  }
 }
 
 .work-card .info {
@@ -403,6 +408,11 @@ footer .social-icons svg {
   display: block;
 }
 
+.works-section.open .modal-overlay {
+  display: block;
+  z-index: 1;
+}
+
 .articles-section {
   background: #111;
   padding: 60px 0;
@@ -430,9 +440,14 @@ footer .social-icons svg {
   transition: filter 0.3s ease;
 }
 
-.article-card:hover img,
 .articles-section.open .article-card.active img {
   filter: none;
+}
+
+@media (hover: hover) {
+  .article-card:hover img {
+    filter: none;
+  }
 }
 
 .article-card .info {
