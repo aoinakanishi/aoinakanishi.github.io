@@ -161,11 +161,11 @@ footer .social-icons svg {
   }
   40% {
     opacity: 0;
-    transform: translateX(-10%);
+    transform: translateX(-100%);
   }
   100% {
     opacity: 0;
-    transform: translateX(-10%);
+    transform: translateX(-100%);
   }
 }
 
