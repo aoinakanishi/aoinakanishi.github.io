@@ -146,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Book section interactions
   const booksSection = document.querySelector('.books-section');
-  const overlay = document.querySelector('.books-section .modal-overlay');
   const books = document.querySelectorAll('.books-section .book');
   books.forEach(book => {
     const close = book.querySelector('.close');
@@ -167,12 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  if (overlay) {
-    overlay.addEventListener('click', () => {
-      booksSection.classList.remove('open');
-      books.forEach(b => b.classList.remove('active'));
-    });
-  }
+  // Clicking outside no longer needed for closing books
 
   // Works section interactions
   const worksSection = document.querySelector('.works-section');
