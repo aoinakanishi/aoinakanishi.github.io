@@ -131,6 +131,7 @@ footer .social-icons svg {
   background-size: cover;
   background-position: center;
   transform-origin: center;
+  filter: grayscale(100%);
   opacity: 0;
   animation: fadeSlide 15s infinite;
 }
@@ -168,6 +169,9 @@ footer .social-icons svg {
     opacity: 0;
     transform: scale(1.2);
   }
+}
+.project-three {
+  filter: grayscale(100%);
 }
 
 .parallax .message {
