@@ -142,4 +142,33 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleIndicator();
     document.addEventListener('scroll', toggleIndicator);
   }
+
+  // Book section interactions
+  const booksSection = document.querySelector('.books-section');
+  const overlay = document.querySelector('.books-section .modal-overlay');
+  const books = document.querySelectorAll('.books-section .book');
+  books.forEach(book => {
+    const close = book.querySelector('.close');
+    book.addEventListener('click', e => {
+      // Prevent nested event from triggering close immediately
+      e.stopPropagation();
+      books.forEach(b => b.classList.remove('active'));
+      book.classList.add('active');
+      booksSection.classList.add('open');
+    });
+    if (close) {
+      close.addEventListener('click', e => {
+        e.stopPropagation();
+        booksSection.classList.remove('open');
+        book.classList.remove('active');
+      });
+    }
+  });
+
+  if (overlay) {
+    overlay.addEventListener('click', () => {
+      booksSection.classList.remove('open');
+      books.forEach(b => b.classList.remove('active'));
+    });
+  }
 });
