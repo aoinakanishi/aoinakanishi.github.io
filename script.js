@@ -87,7 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Smooth scroll between projects using arrow keys
   const scrollTargets = [
     document.querySelector('header.hero'),
-    ...document.querySelectorAll('section.parallax')
+    ...document.querySelectorAll('section'),
+    document.querySelector('footer')
   ];
   let isScrolling = false;
 
@@ -170,6 +171,35 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.addEventListener('click', () => {
       booksSection.classList.remove('open');
       books.forEach(b => b.classList.remove('active'));
+    });
+  }
+
+  // Works section interactions
+  const worksSection = document.querySelector('.works-section');
+  const worksOverlay = document.querySelector('.works-section .modal-overlay');
+  const works = document.querySelectorAll('.works-section .work-card');
+  works.forEach(work => {
+    const close = work.querySelector('.close');
+    work.addEventListener('click', e => {
+      e.stopPropagation();
+      works.forEach(w => w.classList.remove('active'));
+      work.classList.add('active');
+      worksSection.classList.add('open');
+      worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    if (close) {
+      close.addEventListener('click', e => {
+        e.stopPropagation();
+        worksSection.classList.remove('open');
+        work.classList.remove('active');
+      });
+    }
+  });
+
+  if (worksOverlay) {
+    worksOverlay.addEventListener('click', () => {
+      worksSection.classList.remove('open');
+      works.forEach(w => w.classList.remove('active'));
     });
   }
 });
