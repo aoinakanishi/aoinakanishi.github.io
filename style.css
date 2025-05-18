@@ -199,6 +199,80 @@ footer .social-icons svg {
   pointer-events: none;
 }
 
+.books-section {
+  background: url(https://picsum.photos/1600/900?blur=2) center/cover fixed no-repeat;
+}
+
+.books-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.book {
+  position: relative;
+  width: 200px;
+  cursor: pointer;
+  transform: skewY(-8deg);
+  transition: transform 0.5s;
+}
+
+.book img {
+  width: 100%;
+  display: block;
+}
+
+.book .info {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: calc(100% + 20px);
+  width: 250px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  text-align: left;
+}
+
+.book .close {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.books-section.open .book:not(.active) {
+  display: none;
+}
+
+.books-section.open .book.active {
+  display: flex;
+  align-items: flex-start;
+  transform: none;
+  gap: 20px;
+}
+
+.books-section.open .book.active img {
+  width: 200px;
+}
+
+.books-section.open .book.active .info {
+  position: static;
+  width: auto;
+  display: block;
+}
+
+.books-section.open .book.active .close {
+  display: block;
+}
+
 @media (max-width: 768px) {
   header.hero,
   .parallax {
