@@ -103,6 +103,12 @@ footer .social-icons img {
   height: 30px;
 }
 
+footer .social-icons svg {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+
 /* Project One custom background slider */
 .project-one {
   overflow: hidden;
