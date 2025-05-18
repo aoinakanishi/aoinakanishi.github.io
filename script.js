@@ -87,4 +87,24 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => (isScrolling = false), 800);
     }
   });
+
+  const indicator = document.getElementById('scroll-indicator');
+  const firstSection = document.querySelector('section.parallax');
+
+  if (indicator && firstSection) {
+    indicator.addEventListener('click', () => {
+      firstSection.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    function toggleIndicator() {
+      if (window.scrollY < 50) {
+        indicator.classList.remove('hidden');
+      } else {
+        indicator.classList.add('hidden');
+      }
+    }
+
+    toggleIndicator();
+    document.addEventListener('scroll', toggleIndicator);
+  }
 });
