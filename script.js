@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   updateViewportHeight();
   window.addEventListener('resize', updateViewportHeight);
+  const yearEl = document.getElementById('current-year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
   const sections = document.querySelectorAll('.parallax .content');
   const options = { threshold: 0.5 };
   const observer = new IntersectionObserver((entries) => {
