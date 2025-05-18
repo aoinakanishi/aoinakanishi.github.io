@@ -141,13 +141,13 @@ footer {
   }
 }
 
-.project-one .message {
+.parallax .message {
   opacity: 0;
   transition: opacity 1s ease;
   font-size: 2rem;
 }
 
-.project-one .message.visible {
+.parallax .message.visible {
   opacity: 1;
 }
 
