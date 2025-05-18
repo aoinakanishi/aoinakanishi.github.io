@@ -89,6 +89,20 @@ footer {
   scroll-snap-align: start;
 }
 
+footer .social-icons {
+  margin-top: 20px;
+}
+
+footer .social-icons a {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+footer .social-icons img {
+  width: 30px;
+  height: 30px;
+}
+
 /* Project One custom background slider */
 .project-one {
   overflow: hidden;
