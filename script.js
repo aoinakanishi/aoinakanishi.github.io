@@ -202,4 +202,33 @@ document.addEventListener('DOMContentLoaded', () => {
       works.forEach(w => w.classList.remove('active'));
     });
   }
+
+  // Articles section interactions
+  const articlesSection = document.querySelector('.articles-section');
+  const articlesOverlay = document.querySelector('.articles-section .modal-overlay');
+  const articles = document.querySelectorAll('.articles-section .article-card');
+  articles.forEach(article => {
+    const close = article.querySelector('.close');
+    article.addEventListener('click', e => {
+      e.stopPropagation();
+      articles.forEach(a => a.classList.remove('active'));
+      article.classList.add('active');
+      articlesSection.classList.add('open');
+      articlesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    if (close) {
+      close.addEventListener('click', e => {
+        e.stopPropagation();
+        articlesSection.classList.remove('open');
+        article.classList.remove('active');
+      });
+    }
+  });
+
+  if (articlesOverlay) {
+    articlesOverlay.addEventListener('click', () => {
+      articlesSection.classList.remove('open');
+      articles.forEach(a => a.classList.remove('active'));
+    });
+  }
 });
