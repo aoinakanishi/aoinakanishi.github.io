@@ -1,7 +1,7 @@
 body, html {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: #fff;
   scroll-behavior: smooth;
 }
@@ -26,6 +26,17 @@ header.hero {
 header.hero .content {
   background: rgba(0, 0, 0, 0.5);
   padding: 20px;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+header.hero p {
+  font-size: 2rem;
 }
 
 .parallax {
@@ -44,9 +55,19 @@ header.hero .content {
   background: rgba(0, 0, 0, 0.5);
   padding: 20px;
   text-align: center;
+  width: 100%;
+  margin: 0;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 1s ease, transform 1s ease;
+}
+
+.parallax h2 {
+  font-size: 3rem;
+}
+
+.parallax p {
+  font-size: 1.5rem;
 }
 
 .parallax .content.visible {
@@ -123,6 +144,7 @@ footer {
 .project-one .message {
   opacity: 0;
   transition: opacity 1s ease;
+  font-size: 2rem;
 }
 
 .project-one .message.visible {
