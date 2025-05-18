@@ -1,3 +1,7 @@
+:root {
+  --vh: 1vh;
+}
+
 body, html {
   margin: 0;
   padding: 0;
@@ -14,7 +18,7 @@ header {
 }
 
 header.hero {
-  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
   padding: 0;
   background-size: cover;
   background-position: center;
@@ -42,7 +46,7 @@ header.hero p {
 }
 
 .parallax {
-  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
   position: relative;
   background-attachment: fixed;
   background-position: center;
@@ -173,4 +177,11 @@ footer {
 #scroll-indicator.hidden {
   opacity: 0;
   pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  header.hero,
+  .parallax {
+    background-attachment: scroll;
+  }
 }

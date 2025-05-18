@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+  function updateViewportHeight() {
+    document.documentElement.style.setProperty(
+      '--vh', `${window.innerHeight * 0.01}px`
+    );
+  }
+  updateViewportHeight();
+  window.addEventListener('resize', updateViewportHeight);
   const sections = document.querySelectorAll('.parallax .content');
   const options = { threshold: 0.5 };
   const observer = new IntersectionObserver((entries) => {
