@@ -252,6 +252,7 @@ footer .social-icons svg {
   left: calc(100% + 20px);
   width: 250px;
   background: rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
   padding: 20px;
   text-align: left;
 }
@@ -292,6 +293,7 @@ footer .social-icons svg {
   position: static;
   width: 60%;
   background: rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
 }
 
 .books-section.open .book.active .close {
@@ -320,6 +322,7 @@ footer .social-icons svg {
   .books-section.open .book.active .info {
     width: 100%;
     height: 50%;
+    box-sizing: border-box;
     overflow-y: auto;
   }
 
