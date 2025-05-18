@@ -199,6 +199,79 @@ footer .social-icons svg {
   pointer-events: none;
 }
 
+
+.books-section {
+  background: #111;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.books-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  width: 80%;
+}
+
+.book {
+  position: relative;
+  width: 280px;
+  cursor: pointer;
+  transform: skewY(-8deg);
+  transition: transform 0.5s, width 0.5s;
+}
+
+.book img {
+  width: 100%;
+  display: block;
+}
+
+.book .info {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 40px);
+  transform: translateY(-50%);
+  width: 60vw;
+  max-width: 600px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  text-align: left;
+}
+
+.book .close {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.book.active {
+  transform: translateX(-160px);
+}
+
+.book.active .info,
+.book.active .close {
+  display: block;
+}
+
+.books-section.open .book:not(.active) {
+  display: none;
+}
+
+.books-section.open .books-container {
+  justify-content: flex-start;
+}
+
 @media (max-width: 768px) {
   header.hero,
   .parallax {
