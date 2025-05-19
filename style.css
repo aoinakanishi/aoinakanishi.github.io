@@ -341,7 +341,10 @@ section img.loaded {
 
 .works-section {
   position: relative;
-  background: #222;
+  background-image: url('images/product-panorama.svg');
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+  background-position: 0 center;
   padding: 60px 0;
   scroll-snap-align: start;
 }
