@@ -220,6 +220,18 @@ section img.loaded {
   padding: 60px 0;
   scroll-snap-align: start;
   overflow: hidden;
+  display: block; /* override flex layout from .parallax */
+}
+
+/* Stylized heading for books section */
+.books-section h2 {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 4rem;
+  margin: 0 0 40px;
+  text-align: center;
+  letter-spacing: 2px;
+  position: relative;
+  z-index: 1;
 }
 
 .books-section::before {
