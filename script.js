@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  let lastScrollY = null;
+
   const sections = document.querySelectorAll('.parallax .content');
   const options = { threshold: 0.5 };
   const observer = new IntersectionObserver((entries) => {
@@ -164,6 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
       books.forEach(b => b.classList.remove('active'));
       book.classList.add('active');
       booksSection.classList.add('open');
+      lastScrollY = window.scrollY;
       booksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     if (close) {
@@ -171,6 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
         e.stopPropagation();
         booksSection.classList.remove('open');
         book.classList.remove('active');
+        if (lastScrollY !== null) {
+          window.scrollTo({ top: lastScrollY, behavior: 'auto' });
+        }
       });
     }
   });
@@ -178,8 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Clicking outside no longer needed for closing books
 
   // Works section interactions
-  const worksSection = document.querySelector('.works-section');
-  const worksOverlay = document.querySelector('.works-section .modal-overlay');
   const works = document.querySelectorAll('.works-section .work-card');
 
   function getHeroOverlay() {
@@ -203,57 +207,51 @@ document.addEventListener('DOMContentLoaded', () => {
     clone.style.height = `${start.height}px`;
     overlay.innerHTML = '';
     overlay.appendChild(clone);
-    overlay.style.display = 'block';
+    overlay.classList.add('active');
+    overlay.currentWork = work;
 
-    works.forEach(w => w.classList.remove('active'));
-    worksSection.classList.add('open');
-    work.classList.add('active');
     work.style.visibility = 'hidden';
 
     requestAnimationFrame(() => {
-      const end = work.getBoundingClientRect();
       clone.classList.add('active');
-      clone.style.top = `${end.top}px`;
-      clone.style.left = `${end.left}px`;
-      clone.style.width = `${end.width}px`;
-      clone.style.height = `${end.height}px`;
+      clone.style.top = `${window.innerHeight * 0.1}px`;
+      clone.style.left = `${window.innerWidth * 0.1}px`;
+      clone.style.width = `${window.innerWidth * 0.8}px`;
+      clone.style.height = `${window.innerHeight * 0.8}px`;
     });
 
-    clone.addEventListener('transitionend', () => {
-      overlay.style.display = 'none';
-      work.style.visibility = '';
+    const close = clone.querySelector('.close');
+    if (close) {
+      close.addEventListener('click', e => {
+        e.stopPropagation();
+        heroCollapse();
+      }, { once: true });
+    }
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) {
+        heroCollapse();
+      }
     }, { once: true });
   }
 
-  function heroCollapse(work) {
+  function heroCollapse() {
     const overlay = getHeroOverlay();
-    const start = work.getBoundingClientRect();
-    const clone = work.cloneNode(true);
-    clone.classList.add('hero-clone', 'active');
-    clone.style.top = `${start.top}px`;
-    clone.style.left = `${start.left}px`;
-    clone.style.width = `${start.width}px`;
-    clone.style.height = `${start.height}px`;
-    overlay.innerHTML = '';
-    overlay.appendChild(clone);
-    overlay.style.display = 'block';
+    const work = overlay.currentWork;
+    if (!work) return;
+    const clone = overlay.querySelector('.hero-clone');
+    const end = work.getBoundingClientRect();
 
-    work.style.visibility = 'hidden';
-    worksSection.classList.remove('open');
-    works.forEach(w => w.classList.remove('active'));
-
-    requestAnimationFrame(() => {
-      const end = work.getBoundingClientRect();
-      clone.classList.remove('active');
-      clone.style.top = `${end.top}px`;
-      clone.style.left = `${end.left}px`;
-      clone.style.width = `${end.width}px`;
-      clone.style.height = `${end.height}px`;
-    });
+    clone.classList.remove('active');
+    clone.style.top = `${end.top}px`;
+    clone.style.left = `${end.left}px`;
+    clone.style.width = `${end.width}px`;
+    clone.style.height = `${end.height}px`;
 
     clone.addEventListener('transitionend', () => {
-      overlay.style.display = 'none';
+      overlay.classList.remove('active');
+      overlay.innerHTML = '';
       work.style.visibility = '';
+      overlay.currentWork = null;
     }, { once: true });
   }
 
@@ -266,21 +264,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (close) {
       close.addEventListener('click', e => {
         e.stopPropagation();
-        heroCollapse(work);
+        heroCollapse();
       });
     }
   });
 
-  if (worksOverlay) {
-    worksOverlay.addEventListener('click', () => {
-      const active = worksSection.querySelector('.work-card.active');
-      if (active) {
-        heroCollapse(active);
-      } else {
-        worksSection.classList.remove('open');
-      }
-    });
-  }
 
   // Articles section interactions
   const articlesSection = document.querySelector('.articles-section');
@@ -293,6 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
       articles.forEach(a => a.classList.remove('active'));
       article.classList.add('active');
       articlesSection.classList.add('open');
+      lastScrollY = window.scrollY;
       articlesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     if (close) {
@@ -300,6 +289,9 @@ document.addEventListener('DOMContentLoaded', () => {
         e.stopPropagation();
         articlesSection.classList.remove('open');
         article.classList.remove('active');
+        if (lastScrollY !== null) {
+          window.scrollTo({ top: lastScrollY, behavior: 'auto' });
+        }
       });
     }
   });
@@ -308,6 +300,9 @@ document.addEventListener('DOMContentLoaded', () => {
     articlesOverlay.addEventListener('click', () => {
       articlesSection.classList.remove('open');
       articles.forEach(a => a.classList.remove('active'));
+      if (lastScrollY !== null) {
+        window.scrollTo({ top: lastScrollY, behavior: 'auto' });
+      }
     });
   }
   document.addEventListener('keydown', e => {
@@ -315,19 +310,20 @@ document.addEventListener('DOMContentLoaded', () => {
       if (booksSection && booksSection.classList.contains('open')) {
         booksSection.classList.remove('open');
         books.forEach(b => b.classList.remove('active'));
-      }
-      if (worksSection && worksSection.classList.contains('open')) {
-        const active = worksSection.querySelector('.work-card.active');
-        if (active) {
-          heroCollapse(active);
-        } else {
-          worksSection.classList.remove('open');
-          works.forEach(w => w.classList.remove('active'));
+        if (lastScrollY !== null) {
+          window.scrollTo({ top: lastScrollY, behavior: 'auto' });
         }
+      }
+      const overlay = document.getElementById('hero-overlay');
+      if (overlay && overlay.classList.contains('active')) {
+        heroCollapse();
       }
       if (articlesSection && articlesSection.classList.contains('open')) {
         articlesSection.classList.remove('open');
         articles.forEach(a => a.classList.remove('active'));
+        if (lastScrollY !== null) {
+          window.scrollTo({ top: lastScrollY, behavior: 'auto' });
+        }
       }
     }
   });
