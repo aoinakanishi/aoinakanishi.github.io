@@ -172,28 +172,105 @@ document.addEventListener('DOMContentLoaded', () => {
   const worksSection = document.querySelector('.works-section');
   const worksOverlay = document.querySelector('.works-section .modal-overlay');
   const works = document.querySelectorAll('.works-section .work-card');
+
+  function getHeroOverlay() {
+    let overlay = document.getElementById('hero-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'hero-overlay';
+      document.body.appendChild(overlay);
+    }
+    return overlay;
+  }
+
+  function heroExpand(work) {
+    const overlay = getHeroOverlay();
+    const start = work.getBoundingClientRect();
+    const clone = work.cloneNode(true);
+    clone.classList.add('hero-clone');
+    clone.style.top = `${start.top + window.scrollY}px`;
+    clone.style.left = `${start.left + window.scrollX}px`;
+    clone.style.width = `${start.width}px`;
+    clone.style.height = `${start.height}px`;
+    overlay.innerHTML = '';
+    overlay.appendChild(clone);
+    overlay.style.display = 'block';
+
+    works.forEach(w => w.classList.remove('active'));
+    worksSection.classList.add('open');
+    work.classList.add('active');
+    work.style.visibility = 'hidden';
+    worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    requestAnimationFrame(() => {
+      const end = work.getBoundingClientRect();
+      clone.classList.add('active');
+      clone.style.top = `${end.top + window.scrollY}px`;
+      clone.style.left = `${end.left + window.scrollX}px`;
+      clone.style.width = `${end.width}px`;
+      clone.style.height = `${end.height}px`;
+    });
+
+    clone.addEventListener('transitionend', () => {
+      overlay.style.display = 'none';
+      work.style.visibility = '';
+    }, { once: true });
+  }
+
+  function heroCollapse(work) {
+    const overlay = getHeroOverlay();
+    const start = work.getBoundingClientRect();
+    const clone = work.cloneNode(true);
+    clone.classList.add('hero-clone', 'active');
+    clone.style.top = `${start.top + window.scrollY}px`;
+    clone.style.left = `${start.left + window.scrollX}px`;
+    clone.style.width = `${start.width}px`;
+    clone.style.height = `${start.height}px`;
+    overlay.innerHTML = '';
+    overlay.appendChild(clone);
+    overlay.style.display = 'block';
+
+    work.style.visibility = 'hidden';
+    worksSection.classList.remove('open');
+    works.forEach(w => w.classList.remove('active'));
+
+    requestAnimationFrame(() => {
+      const end = work.getBoundingClientRect();
+      clone.classList.remove('active');
+      clone.style.top = `${end.top + window.scrollY}px`;
+      clone.style.left = `${end.left + window.scrollX}px`;
+      clone.style.width = `${end.width}px`;
+      clone.style.height = `${end.height}px`;
+    });
+
+    clone.addEventListener('transitionend', () => {
+      overlay.style.display = 'none';
+      work.style.visibility = '';
+    }, { once: true });
+  }
+
   works.forEach(work => {
     const close = work.querySelector('.close');
     work.addEventListener('click', e => {
       e.stopPropagation();
-      works.forEach(w => w.classList.remove('active'));
-      work.classList.add('active');
-      worksSection.classList.add('open');
-      worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      heroExpand(work);
     });
     if (close) {
       close.addEventListener('click', e => {
         e.stopPropagation();
-        worksSection.classList.remove('open');
-        work.classList.remove('active');
+        heroCollapse(work);
       });
     }
   });
 
   if (worksOverlay) {
     worksOverlay.addEventListener('click', () => {
-      worksSection.classList.remove('open');
-      works.forEach(w => w.classList.remove('active'));
+      const active = worksSection.querySelector('.work-card.active');
+      if (active) {
+        heroCollapse(active);
+      } else {
+        worksSection.classList.remove('open');
+      }
     });
   }
 
@@ -232,8 +309,13 @@ document.addEventListener('DOMContentLoaded', () => {
         books.forEach(b => b.classList.remove('active'));
       }
       if (worksSection && worksSection.classList.contains('open')) {
-        worksSection.classList.remove('open');
-        works.forEach(w => w.classList.remove('active'));
+        const active = worksSection.querySelector('.work-card.active');
+        if (active) {
+          heroCollapse(active);
+        } else {
+          worksSection.classList.remove('open');
+          works.forEach(w => w.classList.remove('active'));
+        }
       }
       if (articlesSection && articlesSection.classList.contains('open')) {
         articlesSection.classList.remove('open');
