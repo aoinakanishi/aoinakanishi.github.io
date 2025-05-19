@@ -597,3 +597,65 @@ footer .social-icons svg {
     z-index: 3;
   }
 }
+
+/* Hero animation overlay */
+#hero-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+#hero-overlay .hero-clone {
+  position: absolute;
+  margin: 0;
+  box-sizing: border-box;
+  transition: top 0.6s ease, left 0.6s ease, width 0.6s ease, height 0.6s ease;
+}
+
+#hero-overlay .hero-clone.active {
+  display: flex;
+  width: 80%;
+  margin: 0 10%;
+  gap: 20px;
+  background: #000;
+  z-index: 10001;
+}
+
+#hero-overlay .hero-clone.active img {
+  width: 60%;
+}
+
+#hero-overlay .hero-clone.active .info {
+  display: block;
+  width: 40%;
+  background: rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
+}
+
+#hero-overlay .hero-clone.active .close {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  #hero-overlay .hero-clone.active {
+    flex-direction: column;
+    width: 100%;
+    height: calc(var(--vh, 1vh) * 100);
+    margin: 0;
+  }
+
+  #hero-overlay .hero-clone.active img {
+    width: 100%;
+    height: 50%;
+    object-fit: contain;
+  }
+
+  #hero-overlay .hero-clone.active .info {
+    width: 100%;
+    height: 50%;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+}
+
