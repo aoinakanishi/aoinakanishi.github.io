@@ -270,41 +270,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // Articles section interactions
-  const articlesSection = document.querySelector('.articles-section');
-  const articlesOverlay = document.querySelector('.articles-section .modal-overlay');
-  const articles = document.querySelectorAll('.articles-section .article-card');
-  articles.forEach(article => {
-    const close = article.querySelector('.close');
-    article.addEventListener('click', e => {
-      e.stopPropagation();
-      articles.forEach(a => a.classList.remove('active'));
-      article.classList.add('active');
-      articlesSection.classList.add('open');
-      lastScrollY = window.scrollY;
-      articlesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-    if (close) {
-      close.addEventListener('click', e => {
-        e.stopPropagation();
-        articlesSection.classList.remove('open');
-        article.classList.remove('active');
-        if (lastScrollY !== null) {
-          window.scrollTo({ top: lastScrollY, behavior: 'auto' });
-        }
-      });
-    }
-  });
-
-  if (articlesOverlay) {
-    articlesOverlay.addEventListener('click', () => {
-      articlesSection.classList.remove('open');
-      articles.forEach(a => a.classList.remove('active'));
-      if (lastScrollY !== null) {
-        window.scrollTo({ top: lastScrollY, behavior: 'auto' });
-      }
-    });
-  }
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       if (booksSection && booksSection.classList.contains('open')) {
@@ -317,13 +282,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const overlay = document.getElementById('hero-overlay');
       if (overlay && overlay.classList.contains('active')) {
         heroCollapse();
-      }
-      if (articlesSection && articlesSection.classList.contains('open')) {
-        articlesSection.classList.remove('open');
-        articles.forEach(a => a.classList.remove('active'));
-        if (lastScrollY !== null) {
-          window.scrollTo({ top: lastScrollY, behavior: 'auto' });
-        }
       }
     }
   });
