@@ -346,6 +346,15 @@ section img.loaded {
   scroll-snap-align: start;
 }
 
+/* Stylized heading for works section */
+.works-section h2 {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 4rem;
+  margin: 0 0 40px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
 .works-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -403,6 +412,15 @@ section img.loaded {
   background: #111;
   padding: 60px 0;
   scroll-snap-align: start;
+}
+
+/* Stylized heading for articles section */
+.articles-section h2 {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 4rem;
+  margin: 0 0 40px;
+  text-align: center;
+  letter-spacing: 2px;
 }
 
 .articles-grid {
