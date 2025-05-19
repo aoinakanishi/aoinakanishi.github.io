@@ -341,9 +341,9 @@ section img.loaded {
 
 .works-section {
   position: relative;
-  background-image: url('images/product-panorama.svg');
+  background-image: url('images/panorama.jpg');
   background-repeat: no-repeat;
-  background-size: 200% 100%;
+  background-size: 300% 100%;
   background-position: 0 center;
   padding: 60px 0;
   scroll-snap-align: start;
