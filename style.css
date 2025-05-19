@@ -626,7 +626,7 @@ section img.loaded {
 #hero-overlay .hero-clone.active {
   display: flex;
   width: 80%;
-  margin: 0 10%;
+  margin: 0;
   gap: 20px;
   background: #000;
   z-index: 10001;
