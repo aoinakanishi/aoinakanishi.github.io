@@ -10,6 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
+  const images = document.querySelectorAll("section img");
+  images.forEach(img => {
+    if (img.complete) {
+      img.classList.add("loaded");
+    } else {
+      img.addEventListener("load", () => img.classList.add("loaded"));
+    }
+  });
+
   const sections = document.querySelectorAll('.parallax .content');
   const options = { threshold: 0.5 };
   const observer = new IntersectionObserver((entries) => {
