@@ -33,6 +33,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   sections.forEach(section => observer.observe(section));
 
+  const worksPanorama = document.querySelector('.works-section');
+  let worksStart = 0;
+  let worksEnd = 0;
+
+  function updateWorksBounds() {
+    if (!worksPanorama) return;
+    worksStart = worksPanorama.offsetTop;
+    worksEnd = worksStart + worksPanorama.offsetHeight - window.innerHeight;
+  }
+
+  function updatePanorama() {
+    if (!worksPanorama) return;
+    const progress = Math.min(
+      Math.max((window.scrollY - worksStart) / (worksEnd - worksStart), 0),
+      1
+    );
+    // Move panorama left as user scrolls down
+    worksPanorama.style.backgroundPositionX = `${progress * 100}%`;
+  }
+
+  updateWorksBounds();
+  updatePanorama();
+  window.addEventListener('resize', () => {
+    updateWorksBounds();
+    updatePanorama();
+  });
+  document.addEventListener('scroll', updatePanorama);
+
   // Project One background images
   const projectImages = Array.from({ length: 3 }, (_, i) =>
     `https://picsum.photos/1600/900?random=${Date.now()}-${i}`
