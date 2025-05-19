@@ -197,8 +197,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const start = work.getBoundingClientRect();
     const clone = work.cloneNode(true);
     clone.classList.add('hero-clone');
-    clone.style.top = `${start.top + window.scrollY}px`;
-    clone.style.left = `${start.left + window.scrollX}px`;
+    clone.style.top = `${start.top}px`;
+    clone.style.left = `${start.left}px`;
     clone.style.width = `${start.width}px`;
     clone.style.height = `${start.height}px`;
     overlay.innerHTML = '';
@@ -209,13 +209,12 @@ document.addEventListener('DOMContentLoaded', () => {
     worksSection.classList.add('open');
     work.classList.add('active');
     work.style.visibility = 'hidden';
-    worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     requestAnimationFrame(() => {
       const end = work.getBoundingClientRect();
       clone.classList.add('active');
-      clone.style.top = `${end.top + window.scrollY}px`;
-      clone.style.left = `${end.left + window.scrollX}px`;
+      clone.style.top = `${end.top}px`;
+      clone.style.left = `${end.left}px`;
       clone.style.width = `${end.width}px`;
       clone.style.height = `${end.height}px`;
     });
@@ -231,8 +230,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const start = work.getBoundingClientRect();
     const clone = work.cloneNode(true);
     clone.classList.add('hero-clone', 'active');
-    clone.style.top = `${start.top + window.scrollY}px`;
-    clone.style.left = `${start.left + window.scrollX}px`;
+    clone.style.top = `${start.top}px`;
+    clone.style.left = `${start.left}px`;
     clone.style.width = `${start.width}px`;
     clone.style.height = `${start.height}px`;
     overlay.innerHTML = '';
@@ -246,8 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(() => {
       const end = work.getBoundingClientRect();
       clone.classList.remove('active');
-      clone.style.top = `${end.top + window.scrollY}px`;
-      clone.style.left = `${end.left + window.scrollX}px`;
+      clone.style.top = `${end.top}px`;
+      clone.style.left = `${end.left}px`;
       clone.style.width = `${end.width}px`;
       clone.style.height = `${end.height}px`;
     });
