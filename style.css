@@ -377,6 +377,15 @@ section img.loaded {
   padding: 10px;
 }
 
+/* Truncate description text to roughly two lines */
+.work-card .info p {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
 .work-card .close {
   display: none;
   position: absolute;
@@ -596,6 +605,11 @@ section img.loaded {
   box-sizing: border-box;
 }
 
+#hero-overlay .hero-clone.active .info p {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
 #hero-overlay .hero-clone.active .close {
   display: block;
 }
@@ -619,6 +633,11 @@ section img.loaded {
     height: 50%;
     box-sizing: border-box;
     overflow-y: auto;
+  }
+
+  #hero-overlay .hero-clone.active .info p {
+    -webkit-line-clamp: unset;
+    overflow: visible;
   }
 }
 
