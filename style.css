@@ -554,6 +554,10 @@ section img.loaded {
   transition: top 0.6s ease, left 0.6s ease, width 0.6s ease, height 0.6s ease;
 }
 
+#hero-overlay .hero-clone img {
+  filter: none;
+}
+
 #hero-overlay .hero-clone.active {
   display: flex;
   width: 80%;
