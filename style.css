@@ -436,7 +436,7 @@ section img.loaded {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('images/typewriter.webp');
+  background-image: url('images/wall.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: inherit;
