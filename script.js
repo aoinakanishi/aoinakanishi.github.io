@@ -20,6 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   let lastScrollY = null;
+  function closeActiveBook() {
+    if (booksSection && booksSection.classList.contains('open')) {
+      booksSection.classList.remove('open');
+      const active = booksSection.querySelector('.book.active');
+      if (active) {
+        active.classList.remove('active');
+      }
+      lastScrollY = null;
+    }
+  }
 
   const sections = document.querySelectorAll('.parallax .content');
   const options = { threshold: 0.5 };
@@ -189,22 +199,17 @@ document.addEventListener('DOMContentLoaded', () => {
   books.forEach(book => {
     const close = book.querySelector('.close');
     book.addEventListener('click', e => {
-      // Prevent nested event from triggering close immediately
       e.stopPropagation();
       books.forEach(b => b.classList.remove('active'));
       book.classList.add('active');
       booksSection.classList.add('open');
-      lastScrollY = window.scrollY;
       booksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => { lastScrollY = window.scrollY; }, 500);
     });
     if (close) {
       close.addEventListener('click', e => {
         e.stopPropagation();
-        booksSection.classList.remove('open');
-        book.classList.remove('active');
-        if (lastScrollY !== null) {
-          window.scrollTo({ top: lastScrollY, behavior: 'auto' });
-        }
+        closeActiveBook();
       });
     }
   });
@@ -225,6 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function heroExpand(work) {
+    lastScrollY = window.scrollY;
     const overlay = getHeroOverlay();
     const start = work.getBoundingClientRect();
     const clone = work.cloneNode(true);
@@ -280,6 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
       overlay.innerHTML = '';
       work.style.visibility = '';
       overlay.currentWork = null;
+      lastScrollY = null;
     }, { once: true });
   }
 
@@ -297,16 +304,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  function handleBackgroundScroll() {
+    if (booksSection && booksSection.classList.contains('open')) {
+      if (lastScrollY !== null && Math.abs(window.scrollY - lastScrollY) > 5) {
+        closeActiveBook();
+      }
+    }
+    const overlay = document.getElementById('hero-overlay');
+    if (overlay && overlay.classList.contains('active')) {
+      if (lastScrollY !== null && Math.abs(window.scrollY - lastScrollY) > 5) {
+        heroCollapse();
+      }
+    }
+  }
+
+  window.addEventListener('scroll', handleBackgroundScroll);
+
 
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
-      if (booksSection && booksSection.classList.contains('open')) {
-        booksSection.classList.remove('open');
-        books.forEach(b => b.classList.remove('active'));
-        if (lastScrollY !== null) {
-          window.scrollTo({ top: lastScrollY, behavior: 'auto' });
-        }
-      }
+      closeActiveBook();
       const overlay = document.getElementById('hero-overlay');
       if (overlay && overlay.classList.contains('active')) {
         heroCollapse();
