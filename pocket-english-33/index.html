@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f7f5">
+  <meta name="description" content="日本語を見て英語を思い出す。タップだけで覚える33文の英語単語帳。">
+  <title>英語33文｜タップで覚える単語帳</title>
+  <style>
+    :root{color-scheme:light;--bg:#f6f7f5;--paper:#fff;--ink:#152728;--muted:#68817d;--accent:#08776a;--accent-soft:#e2f4eb;--line:#e0e9e4;--shadow:0 15px 45px rgba(18,65,52,.07)}
+    *{box-sizing:border-box}html{background:var(--bg);-webkit-tap-highlight-color:transparent}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;color:var(--ink);overscroll-behavior-y:contain}
+    button,select{font:inherit}button{cursor:pointer;touch-action:manipulation}button:focus-visible,select:focus-visible{outline:3px solid #54baa8;outline-offset:3px}
+    .app{width:min(100%,680px);margin:auto;padding:20px 16px calc(112px + env(safe-area-inset-bottom))}
+    .topline{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}.brand{display:flex;gap:8px;align-items:center;font-weight:900;font-size:14px;letter-spacing:.01em;color:#184c43}.brandicon{display:grid;place-items:center;background:#daeee4;color:#087769;width:31px;height:31px;border-radius:10px;font-size:17px}.mini{background:transparent;border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:var(--muted);font-weight:700;font-size:12px}
+    h1{font-size:clamp(25px,7vw,34px);letter-spacing:-.045em;line-height:1.2;margin:13px 0 6px;font-weight:900}.subtitle{font-size:13px;color:var(--muted);margin:0 0 18px;line-height:1.65}
+    .stats{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.stat{font-size:12px;color:var(--muted);font-weight:650}.stat b{font-size:18px;color:var(--ink);font-weight:850;letter-spacing:-.04em}.progress{height:7px;background:#e0e9e4;border-radius:99px;overflow:hidden;margin-bottom:19px}.bar{background:var(--accent);height:100%;border-radius:99px;width:0;transition:width .2s}
+    .tools{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}.modes{display:flex;flex:1;gap:4px;background:#e9eeeb;border-radius:13px;padding:4px;min-width:230px}.mode{flex:1;border:0;background:transparent;color:#52736c;border-radius:10px;padding:10px 5px;font-size:13px;font-weight:800;white-space:nowrap}.mode.active{background:#fff;color:#076f60;box-shadow:0 2px 8px rgba(5,54,42,.08)}
+    .filterrow{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:12px}.filterwrap{position:relative;max-width:48%}.filterwrap:after{content:"⌄";position:absolute;right:12px;top:50%;transform:translateY(-55%);pointer-events:none;color:#5e796e;font-size:19px}.unitselect{width:100%;appearance:none;border:1px solid var(--line);border-radius:11px;background:#fff;color:#33534b;padding:9px 29px 9px 13px;font-size:12px;font-weight:800}.shuffle{border:1px solid var(--line);background:#fff;color:#33534b;border-radius:11px;padding:9px 12px;font-size:12px;font-weight:800}.shuffle.on{border-color:#96d5c4;background:#e2f4eb;color:#056d5d}.counter{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:800}
+    .card{width:100%;border:1px solid #dfe7e2;border-radius:26px;background:var(--paper);box-shadow:var(--shadow);text-align:left;padding:23px 22px 22px;display:flex;flex-direction:column;min-height:clamp(340px,50dvh,505px);user-select:none;-webkit-user-select:none;transition:border-color .15s,transform .1s}.card:active{transform:scale(.997)}.card.open{border-color:#b5ded0}.card-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.num{font-size:12px;color:#7b948b;font-weight:800;font-variant-numeric:tabular-nums}.unit{display:inline-block;padding:6px 9px;background:#edf4ef;border-radius:8px;font-size:11px;color:#327467;font-weight:850;letter-spacing:.035em}
+    .questionarea{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;flex:1;gap:14px;margin-top:18px;margin-bottom:15px}.tag{font-size:11px;letter-spacing:.1em;font-weight:900;color:var(--accent);display:flex;align-items:center;gap:7px}.tag:before{content:"";display:block;height:7px;width:7px;border-radius:50%;background:var(--accent)}.jp{margin:0;font-size:clamp(22px,5.5vw,32px);font-weight:850;line-height:1.65;letter-spacing:-.04em;overflow-wrap:anywhere}
+    .answer{padding-top:20px;border-top:1px dashed #cbdcd2;min-height:112px;display:flex;flex-direction:column;justify-content:center}.placeholder{color:#79918a;display:flex;align-items:center;gap:9px;font-size:14px;font-weight:750}.tapico{width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:17px}.english{font-size:clamp(20px,5.3vw,26px);font-weight:760;line-height:1.48;letter-spacing:-.02em;overflow-wrap:anywhere;color:#066b5e;animation:appear .16s ease-out}.answer-label{display:block;font-size:10px;color:#7c978d;font-weight:900;letter-spacing:.1em;margin-bottom:7px}.footnote{margin-top:10px;color:#8aa19a;font-size:11px;text-align:center;min-height:18px}
+    .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.grade{border:1px solid #d9e3de;border-radius:15px;background:#fff;color:#4c6b63;padding:14px 8px;font-size:14px;font-weight:900;min-height:53px}.grade.know{background:#117c6b;color:#fff;border-color:#117c6b}.grade:disabled{opacity:.45;cursor:default}.speakrow{display:flex;justify-content:center;margin-top:11px;min-height:31px}.speak{border:0;background:transparent;color:#628078;font-weight:750;font-size:12px;padding:6px 12px}.speak:disabled{opacity:.35}.speak[hidden]{display:none}
+    .empty{display:none;min-height:320px;align-items:center;justify-content:center;flex-direction:column;text-align:center;border-radius:26px;border:1px dashed #b9cec4;background:#fff;padding:25px;gap:12px}.emptyicon{font-size:36px}.empty h2{margin:0;font-size:20px}.empty p{margin:0;color:var(--muted);line-height:1.8;font-size:14px}.empty button{border:0;background:#0b7668;color:#fff;border-radius:12px;font-weight:800;padding:12px 17px;margin-top:7px}
+    .dock{position:fixed;z-index:10;bottom:0;left:0;right:0;display:flex;justify-content:center;background:linear-gradient(0deg,rgba(246,247,245,1) 62%,rgba(246,247,245,.91) 85%,rgba(246,247,245,0));padding:20px 16px calc(13px + env(safe-area-inset-bottom))}.dockinner{display:grid;grid-template-columns:100px 1fr;gap:10px;width:min(100%,648px)}.navbtn{min-height:58px;border-radius:16px;font-size:16px;font-weight:900;border:1px solid var(--line);background:#fff;color:#4f7168}.navbtn.primary{color:#fff;background:var(--ink);border-color:var(--ink);box-shadow:0 4px 14px rgba(19,55,44,.15)}.navbtn:disabled{opacity:.45}
+    .tips{color:#91a49d;font-size:11px;text-align:center;margin:16px 0 0}.reset{margin-top:22px;text-align:center}.reset button{background:transparent;border:0;color:#8fa39a;font-size:11px;text-decoration:underline;padding:5px}
+    @keyframes appear{from{opacity:.15;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:679px){
+      .app{padding-top:10px}.topline{margin-bottom:3px}h1{font-size:24px;margin:7px 0 3px}
+      .subtitle{font-size:11px;line-height:1.45;margin-bottom:9px}.subtitle br{display:none}
+      .stats{margin-bottom:4px}.progress{margin-bottom:10px;height:6px}.tools{margin-bottom:8px}.mode{padding:8px 4px}.filterrow{margin-bottom:8px}
+      .unitselect,.shuffle{padding-top:8px;padding-bottom:8px}
+      .card{min-height:clamp(270px,39dvh,410px);padding:17px 18px;border-radius:22px}.questionarea{margin-top:11px;margin-bottom:8px;gap:9px}.jp{font-size:clamp(21px,5.6vw,28px);line-height:1.55}.answer{min-height:83px;padding-top:12px}.english{font-size:clamp(18px,5vw,24px)}
+      .actions{margin-top:9px}.grade{min-height:50px;padding:9px}.speakrow{margin-top:3px;min-height:24px}.tips{display:none}.reset{margin-top:8px}
+    }
+    @media(min-width:680px){.app{padding-top:32px}.jp{font-size:31px}.card{min-height:410px}.dock{padding-bottom:20px}}@media(max-width:360px){.app{padding-left:12px;padding-right:12px}.card{padding:19px 18px}.modes{min-width:195px}.mode{font-size:12px}.jp{font-size:22px}.navbtn{min-height:55px}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+ <main class="app">
+  <div class="topline"><span class="brand"><span class="brandicon">A<span style="font-size:11px">↔</span></span> ENGLISH POCKET</span><span class="mini">中学英語 · 33文</span></div>
+  <h1>タップで覚える英語</h1>
+  <p class="subtitle">日本語を読んで、英語を声に出すか頭の中で答えよう。<br>電車の中でも、片手でサクサク。</p>
+  <div class="stats"><span class="stat">覚えた <b id="known">0</b> / 33</span><span class="stat">復習したい <b id="weak">0</b> 文</span></div>
+  <div class="progress" role="progressbar" aria-label="習得状況" aria-valuemin="0" aria-valuemax="33" aria-valuenow="0" id="progress"><div class="bar" id="bar"></div></div>
+  <div class="tools"><div class="modes" role="group" aria-label="練習モード"><button class="mode active" data-mode="all" type="button">すべて</button><button class="mode" data-mode="weak" type="button">苦手だけ</button><button class="mode" data-mode="notknown" type="button">未習得</button></div></div>
+  <div class="filterrow"><div class="filterwrap"><select class="unitselect" id="unitFilter" aria-label="単元を絞る"><option value="all">全単元</option><option>L4P1</option><option>L4P2</option><option>L4P3</option><option>L4GA</option><option>TAT2</option><option>L5P1</option><option>L5P2</option><option>L5P3</option><option>L5GA</option><option>TAT3</option></select></div><button class="shuffle" id="shuffle" type="button" aria-pressed="false">⇄ シャッフル</button><span class="counter" id="count">1 / 33</span></div>
+  <button id="flashcard" class="card" type="button" aria-label="カードをタップして英文を表示"><div class="card-head"><span class="num" id="num">No. 01</span><span class="unit" id="unit">L4P1</span></div><div class="questionarea"><span class="tag">日本語</span><p class="jp" id="jp">安全な飲み水はどうですか？</p></div><div class="answer" aria-live="polite" aria-atomic="true"><div class="placeholder" id="placeholder"><span class="tapico">↗</span> タップして英語を表示</div><div id="answerContent" hidden><span class="answer-label">ANSWER · 英語</span><div class="english" id="en"></div></div></div></button>
+  <div id="empty" class="empty"><span class="emptyicon">✦</span><h2 id="emptyTitle">該当する問題はありません</h2><p id="emptyMsg">絞り込みを変えてください。</p><button id="showAll" type="button">すべての問題に戻る</button></div>
+  <div class="actions"><button class="grade" id="retry" type="button" disabled>↻ もう一度</button><button class="grade know" id="master" type="button" disabled>✓ 覚えた！</button></div>
+  <div class="speakrow"><button type="button" class="speak" id="speak" hidden>🔊 英語の発音を聞く</button></div>
+  <p class="tips">カードをもう一度タップすると次へ · 左右スワイプもOK</p>
+  <div class="reset"><button id="reset" type="button">学習記録をリセット</button></div>
+ </main>
+ <div class="dock" role="navigation" aria-label="問題の操作"><div class="dockinner"><button type="button" class="navbtn" id="prev">← 前へ</button><button type="button" class="navbtn primary" id="next">答えを見る ↓</button></div></div>
+<script>
+(function(){'use strict';
+ const cards=[
+  [1,'L4P1','安全な飲み水はどうですか？','How about safe drinking water?'],
+  [2,'L4P1','誰もが、生存するために水を必要としている。','Everyone needs water to survive.'],
+  [3,'L4P1','そのトピックについての何冊かの本が市立図書館にある。','There are some books about the topic in the city library.'],
+  [4,'L4P1','どんな食べ物を食べたいですか？','What kind of food do you want to eat?'],
+  [5,'L4P1','あなたに伝え忘れていました。','I forgot to tell you.'],
+  [6,'L4P1','ここから約10分のところに郵便局があるよ。','There is a post office about ten minutes from here.'],
+  [7,'L4P1','その記事には、一部の人たちにとっては、水を集めるのに30分以上かかると書いてある。','The article says, for some people, it takes more than 30 minutes to collect water.'],
+  [8,'L4P1','川や湖や池から直接汚い水を手に入れなければならない人たちがいる。','Some need to get dirty water directly from rivers, lakes, or ponds.'],
+  [9,'L4P1','そのことについて、発表の中で話した方がいいね。','We should talk about that in our presentation.'],
+  [10,'L4P2','あなたは水について本当はどのくらい知っていますか？','How much do you really know about water?'],
+  [11,'L4P2','私たちの発表は健康であり続けるための方法についてです。','Our presentation is about ways to stay healthy.'],
+  [12,'L4P2','研究によると、人は1日あたり最低でも30分間は歩く必要があるそうだ。','Research says people need to walk for at least 30 minutes a day.'],
+  [13,'L4P2','安全な飲み水はどこでも手に入るわけではない。','Safe drinking water is not available everywhere.'],
+  [14,'L4P2','それを飲んだ後に具合が悪くなる人がいる。','Some people get sick after drinking it.'],
+  [15,'L4P2','このようなことが想像できますか？','Can you imagine this?'],
+  [16,'L4P3','明日のお昼前には発表のスライドを作り終えなければいけない。','We have to finish making the presentation slides before noon tomorrow.'],
+  [17,'L4GA','たとえ空白の側（面）があったとしても、人々はその箱の中にプリントを入れていきます。','People put handouts in the box even if there is a blank side.'],
+  [18,'L4GA','私たちは両面使った方がいいです。','We should use both sides.'],
+  [19,'TAT2','あなたの言い分はわかります。','I see your point.'],
+  [20,'L5P1','何枚か写真を見せますね。',"I'll show you some pictures."],
+  [21,'L5P1','あなたは彼女に贈り物をあげるつもりですか？','Are you going to give her a gift?'],
+  [22,'L5P1','なので、私は代わりに彼女にカードを書いて送りました。','So, I wrote her a card instead.'],
+  [23,'L5P1','オンラインのツアーに参加するのはどうですか？','How about joining an online tour?'],
+  [24,'L5P1','それはワクワクしそうだね。','That sounds exciting.'],
+  [25,'L5P1','彼女のウェブサイトへのリンクを送るね。',"I'll send you the link to her website."],
+  [26,'L5P2','彼らはそれをウルル（Uluru）と呼んだ。','They called it Uluru.'],
+  [27,'L5P2','彼らがそれを見たとき、エアーズロック（Ayers Rock）と名付けた。','When they saw it, they named it Ayers Rock.'],
+  [28,'L5P2','このようなことは、彼らを傷つけ、悲しませた。','This hurt them and made them sad.'],
+  [29,'L5P3','それらを使って描く方法を教えましょう。',"I'll show you how to paint with them."],
+  [30,'L5GA','生の音楽を聴くことさえできますよ。','You can even listen to live music.'],
+  [31,'L5GA','それは地元の文化を楽しむのに最適な場所です。',"It's the best place to enjoy local culture."],
+  [32,'TAT3','目黒への行き方を教えていただけますか？','Could you tell me how to get to Meguro?'],
+  [33,'TAT3','あざみ野駅で降りなさい。','Get off at Azamino Station.']
+ ];
+ const key='pocket-english-33-progress-v1';
+ let saved={};try{const s=JSON.parse(localStorage.getItem(key)||'{}');if(s&&typeof s==='object'&&!Array.isArray(s))saved=s}catch(e){}
+ const status=saved;let mode='all',unit='all',random=false,order=cards.slice(),index=0,revealed=false;
+ const $=s=>document.querySelector(s);
+ const el={known:$('#known'),weak:$('#weak'),bar:$('#bar'),progress:$('#progress'),count:$('#count'),card:$('#flashcard'),num:$('#num'),unit:$('#unit'),jp:$('#jp'),en:$('#en'),placeholder:$('#placeholder'),answerContent:$('#answerContent'),retry:$('#retry'),master:$('#master'),speak:$('#speak'),next:$('#next'),prev:$('#prev'),empty:$('#empty'),unitFilter:$('#unitFilter'),shuffle:$('#shuffle')};
+ function save(){try{localStorage.setItem(key,JSON.stringify(status))}catch(e){}}
+ function pool(){return order.filter(c=>(unit==='all'||c[1]===unit)&&(mode==='all'||(mode==='weak'?status[c[0]]===1:status[c[0]]!==2)))}
+ function display(){const mastered=cards.filter(c=>status[c[0]]===2).length,weak=cards.filter(c=>status[c[0]]===1).length;el.known.textContent=mastered;el.weak.textContent=weak;el.bar.style.width=(mastered/33*100)+'%';el.progress.setAttribute('aria-valuenow',mastered);
+   const p=pool();if(index>=p.length)index=Math.max(0,p.length-1);const has=!!p.length;
+   el.card.hidden=!has;el.card.style.display=has?'flex':'none';el.empty.style.display=has?'none':'flex';
+   el.retry.disabled=!has||!revealed;el.master.disabled=!has||!revealed;el.prev.disabled=!has;el.next.disabled=!has;el.speak.hidden=!has||!revealed||!('speechSynthesis'in window);el.count.textContent=has?`${index+1} / ${p.length}`:`0 / 0`;
+   if(!has){$('#emptyTitle').textContent=mode==='weak'?'苦手な問題はまだありません':mode==='notknown'?'この範囲はすべて覚えました！':'この単元に問題はありません';$('#emptyMsg').textContent=mode==='weak'?'「すべて」で答えを確認し、「もう一度」をタップすると追加されます。':'範囲を変えるか「すべて」に戻ってください。';return}
+   const c=p[index];el.num.textContent='No. '+String(c[0]).padStart(2,'0');el.unit.textContent=c[1];el.jp.textContent=c[2];el.en.textContent=c[3];el.placeholder.hidden=revealed;el.answerContent.hidden=!revealed;el.card.classList.toggle('open',revealed);el.card.setAttribute('aria-label',revealed?'英語の答えを表示中。もう一度タップすると次へ':'日本語を表示中。タップすると英文の答えを表示');el.next.textContent=revealed?'次の問題 →':'答えを見る ↓';
+   // Mark already learned/weak without hiding the grade buttons.
+ }
+ function step(delta){const p=pool();if(!p.length)return;index=(index+delta+p.length)%p.length;revealed=false;display()}
+ function flipOrNext(){if(!pool().length)return;if(!revealed){revealed=true;display()}else step(1)}
+ function grade(value){if(!revealed)return;const p=pool();if(!p.length)return;const id=p[index][0];status[id]=value;save();const filtered=(mode!=='all'&&((mode==='weak'&&value===2)||(mode==='notknown'&&value===2)));if(filtered){const next=pool();if(index>=next.length)index=0;revealed=false;display()}else step(1)}
+ function resetSession(){index=0;revealed=false;display()}
+ el.card.addEventListener('click',flipOrNext);el.next.addEventListener('click',flipOrNext);el.prev.addEventListener('click',()=>step(-1));el.retry.addEventListener('click',()=>grade(1));el.master.addEventListener('click',()=>grade(2));
+ document.querySelectorAll('.mode').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.mode;document.querySelectorAll('.mode').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',x===b?'true':'false')});resetSession()}));
+ el.unitFilter.addEventListener('change',()=>{unit=el.unitFilter.value;resetSession()});
+ function shuffleArray(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+ el.shuffle.addEventListener('click',()=>{random=!random;order=random?shuffleArray(cards.slice()):cards.slice();el.shuffle.classList.toggle('on',random);el.shuffle.setAttribute('aria-pressed',String(random));resetSession()});
+ $('#showAll').addEventListener('click',()=>{mode='all';unit='all';el.unitFilter.value='all';document.querySelectorAll('.mode').forEach(b=>b.classList.toggle('active',b.dataset.mode==='all'));resetSession()});
+ $('#reset').addEventListener('click',()=>{if(confirm('「覚えた」「もう一度」の学習記録をすべてリセットしますか？')){Object.keys(status).forEach(k=>delete status[k]);save();resetSession()}});
+ el.speak.addEventListener('click',()=>{const c=pool()[index];if(!revealed||!c||!('speechSynthesis'in window))return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(c[3]);u.lang='en-US';u.rate=.88;speechSynthesis.speak(u)}catch(e){}});
+ let xStart=null,yStart=null;el.card.addEventListener('touchstart',ev=>{if(ev.touches.length!==1)return;xStart=ev.touches[0].clientX;yStart=ev.touches[0].clientY},{passive:true});el.card.addEventListener('touchend',ev=>{if(xStart===null)return;const dx=ev.changedTouches[0].clientX-xStart,dy=ev.changedTouches[0].clientY-yStart;xStart=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.3){ev.preventDefault();step(dx<0?1:-1)}},{passive:false});
+ document.addEventListener('keydown',ev=>{if(ev.target.matches('select, input, textarea'))return;if(ev.key==='ArrowRight'){ev.preventDefault();step(1)}else if(ev.key==='ArrowLeft'){ev.preventDefault();step(-1)}else if(ev.key===' '&&ev.target===document.body){ev.preventDefault();flipOrNext()}});
+ display();
+})();
+</script>
+</body>
+</html>
